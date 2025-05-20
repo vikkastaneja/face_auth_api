@@ -60,6 +60,17 @@ def read_image(file: UploadFile):
 
 @app.post("/predict/vote_batch")
 def predict_vote_batch(files: List[UploadFile] = File(...)):
+
+    # List all files received
+    if not files:
+        return JSONResponse(status_code=400, content={"message": "No files provided."})
+    
+    for file in files:
+        if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            return JSONResponse(status_code=400, content={"message": f"Invalid file type: {file.filename}"})
+        
+        print(f"Received file: {file.filename}")
+
     svm_votes, cnn_votes, facenet_votes = [], [], []
 
     for file in files:
