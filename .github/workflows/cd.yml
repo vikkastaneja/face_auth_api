@@ -1,0 +1,21 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Pull the docker image from Dockerhub
+      run: sudo docker pull vtaneja/cicd_pipeline:latest
+    - name: Delete the old container
+      run: sudo docker rm -f cicd_pipeline-container || true
+    - name: Run the new container
+      run: sudo docker run -d --name cicd_pipeline-container -p 8080:8080 vtaneja/cicd_pipeline:latest
