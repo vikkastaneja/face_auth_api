@@ -13,6 +13,10 @@ from skimage.feature import hog
 from io import BytesIO
 import os
 import cv2
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Face Authentication API")
 
@@ -69,7 +73,7 @@ def predict_vote_batch(files: List[UploadFile] = File(...)):
         if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
             return JSONResponse(status_code=400, content={"message": f"Invalid file type: {file.filename}"})
         
-        print(f"Received file: {file.filename}")
+        logger.info(f"Received file: {file.filename}")
 
     svm_votes, cnn_votes, facenet_votes = [], [], []
 
