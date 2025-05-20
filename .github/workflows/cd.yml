@@ -18,4 +18,4 @@ jobs:
     - name: Delete the old container
       run: sudo docker rm -f cicd_pipeline-container || true
     - name: Run the new container
-      run: sudo docker run -d --name cicd_pipeline-container -p 8080:8080 vtaneja/cicd_pipeline:latest
+      run: sudo docker run -d --name cicd_pipeline-container -p 8000:8000 vtaneja/cicd_pipeline:latest
