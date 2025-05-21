@@ -14,11 +14,11 @@ jobs:
 
     steps:
     - name: Stop all the containers
-      run: sudo docker stop $(docker ps -a -q)
+      run: sudo docker stop $(sudo docker ps -a -q)
     - name: Remove all the containers
-      run: sudo docker rm $(docker ps -a -q) || true
+      run: sudo docker rm $(sudo docker ps -a -q) || true
     - name: Remove all the images
-      run: sudo docker rmi $(docker images -q) || true
+      run: sudo docker rmi $(sudo docker images -q) || true
     - name: Pull the docker image from Dockerhub
       run: sudo docker pull vtaneja/cicd_pipeline:latest
     - name: Run the new container
