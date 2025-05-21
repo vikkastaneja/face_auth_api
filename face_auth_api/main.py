@@ -15,6 +15,27 @@ import os
 import cv2
 import logging
 
+def setup_logging():
+    log_config = {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "format": "%(asctime)s - %(levelname)s - %(message)s",
+            },
+        },
+        "handlers": {
+            "stdout": {
+                "class": "logging.StreamHandler",
+                "formatter": "default",
+                "stream": "ext://sys.stdout",
+            },
+        },
+        "root": {"handlers": ["stdout"], "level": "INFO"},
+        "disable_existing_loggers": False,
+    }
+    logging.config.dictConfig(log_config)
+
+setup_logging()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
